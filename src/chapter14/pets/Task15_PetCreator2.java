@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Task15_PetCreator2 {
-    private Random rand = new Random(47);
+    private Random rand = new Random();
     static List<Factory<? extends Pet>> petsFactories = new ArrayList<>();
     static {
         petsFactories.add(new Cat.Factory());
