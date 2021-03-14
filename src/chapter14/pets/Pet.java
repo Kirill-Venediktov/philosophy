@@ -16,6 +16,10 @@ public class Pet extends Individual {
 
     }
 
+    public void speak() {
+        System.out.println(this + "speaks");
+    }
+
     public static class Factory implements chapter14.factory.Factory<Pet> {
 
         @Override
