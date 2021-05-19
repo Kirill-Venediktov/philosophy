@@ -1,0 +1,20 @@
+package chapter18;
+
+import java.io.*;
+
+public class BasicFileOutputTask13 {
+    static String file =
+            "C:\\Users\\Кирилл Анатольевич\\Documents\\Programming\\philosophy\\src\\chapter18\\forTesting\\BasicFileOutputTask13.out";
+
+    public static void main(String[] args) throws IOException {
+        LineNumberReader lin = new LineNumberReader(new BufferedReader(new StringReader(BufferedInputFile.read(
+                "C:\\Users\\Кирилл Анатольевич\\Documents\\Programming\\philosophy\\src\\chapter18\\BasicFileOutput.java"
+        ))));
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+        String s;
+        while((s = lin.readLine())!= null)
+            out.println(lin.getLineNumber() + ": " + s);
+        out.close();
+        System.out.println(BufferedInputFile.read(file));
+    }
+}

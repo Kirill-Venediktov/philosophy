@@ -15,10 +15,8 @@ public class Task14_RegisteredFactories2 {
     public static Part getRandomPart(){
         try {
             return parts.get(random.nextInt(parts.size())).newInstance();
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-           throw new RuntimeException(e);
         }
     }
 

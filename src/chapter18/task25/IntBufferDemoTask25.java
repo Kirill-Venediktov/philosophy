@@ -1,0 +1,25 @@
+package chapter18.task25;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
+public class IntBufferDemoTask25 {
+    private static final int BSIZE = 1024;
+
+    public static void main(String[] args) {
+        long start = System.nanoTime();
+        ByteBuffer bb = ByteBuffer.allocateDirect(BSIZE);
+        IntBuffer ib = bb.asIntBuffer();
+        ib.put(new int[]{11, 42, 47, 99, 143, 811, 1016});
+        System.out.println(ib.get(3));
+        ib.put(3,1811);
+        ib.flip();
+        while (ib.hasRemaining()) {
+            int i = ib.get();
+            System.out.println(i);
+        }
+        long finish = System.nanoTime() - start;
+
+        System.out.println("Времени потребовалось: " + finish + " нс");
+    }
+}

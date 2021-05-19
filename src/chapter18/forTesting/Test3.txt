@@ -1,0 +1,26 @@
+First of all, you need to understand the correct way to launch a program using the java (or javaw) command.
+
+The normal syntax1 is this:
+
+    java [ <options> ] <class-name> [<arg> ...]
+where <option> is a command line option (starting with a "-" character), <class-name> is a fully qualified Java class name, and <arg> is an arbitrary command line argument that gets passed to your application.
+
+1 - There are some other syntaxes which are described near the end of this answer.
+
+The fully qualified name (FQN) for the class is conventionally written as you would in Java source code; e.g.
+
+    packagename.packagename2.packagename3.ClassName
+However some versions of the java command allow you to use slashes instead of periods; e.g.
+
+    packagename/packagename2/packagename3/ClassName
+which (confusingly) looks like a file pathname, but isn't one. Note that the term fully qualified name is standard Java terminology ... not something I just made up to confuse you :-)
+
+Here is an example of what a java command should look like:
+
+    java -Xmx100m com.acme.example.ListUsers fred joe bert
+The above is going to cause the java command to do the following:
+
+Search for the compiled version of the com.acme.example.ListUsers class.
+Load the class.
+Check that the class has a main method with signature, return type and modifiers given by public static void main(String[]). (Note, the method argument's name is NOT part of the signature.)
+Call that method passing it the command line arguments ("fred", "joe", "bert") as a String[]

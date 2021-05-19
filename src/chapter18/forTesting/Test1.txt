@@ -1,0 +1,74 @@
+Classpath is a parameter in the Java Virtual Machine or the Java compiler that specifies the location of user-defined classes and packages. The parameter may be set either on the command-line, or through an environment variable.
+
+
+Contents
+1	Overview and architecture
+2	Setting the path to execute Java programs
+2.1	Supplying as application argument
+2.2	Setting the path through an environment variable
+2.3	Setting the path of a Jar file
+2.4	Adding all JAR files in a directory
+2.5	Setting the path in a manifest file
+3	OS specific notes
+4	See also
+5	References
+6	External links
+Overview and architecture
+See also: Java Classloader
+Similar to the classic dynamic loading behavior, when executing Java programs, the Java Virtual Machine finds and loads classes lazily (it loads the bytecode of a class only when the class is first used). The classpath tells Java where to look in the filesystem for files defining these classes.
+
+The virtual machine searches for and loads classes in this order:
+
+bootstrap classes: the classes that are fundamental to the Java Platform (comprising the public classes of the Java Class Library, and the private classes that are necessary for this library to be functional).
+extension classes: packages that are in the extension directory of the JRE or JDK, jre/lib/ext/
+user-defined packages and libraries
+By default only the packages of the JDK standard API and extension packages are accessible without needing to set where to find them. The path for all user-defined packages and libraries must be set in the command-line (or in the Manifest associated with the Jar file containing the classes).
+
+Setting the path to execute Java programs
+Supplying as application argument
+Suppose we have a package called org.mypackage containing the classes:
+
+HelloWorld (main class)
+SupportClass
+UtilClass
+and the files defining this package are stored physically under the directory D:\myprogram (on Windows) or /home/user/myprogram (on Linux).
+
+The file structure looks like this:
+
+Microsoft Windows	Linux
+D:\myprogram\
+      |
+      ---> org\  
+            |
+            ---> mypackage\
+                     |
+                     ---> HelloWorld.class       
+                     ---> SupportClass.class   
+                     ---> UtilClass.class     
+/home/user/myprogram/
+            |
+            ---> org/  
+                  |
+                  ---> mypackage/
+                           |
+                           ---> HelloWorld.class       
+                           ---> SupportClass.class   
+                           ---> UtilClass.class     
+When we invoke Java, we specify the name of the application to run: org.mypackage.HelloWorld. However we must also tell Java where to look for the files and directories defining our package. So to launch the program, we use the following command:
+
+Microsoft Windows	Linux
+ java -classpath D:\myprogram org.mypackage.HelloWorld
+ java -cp /home/user/myprogram org.mypackage.HelloWorld 
+where:
+
+java is the Java runtime launcher, a type of SDK Tool (A command-line tool, such as javac, javadoc, or apt)
+-classpath D:\myprogram sets the path to the packages used in the program (on Linux, -cp /home/user/myprogram) and
+org.mypackage.HelloWorld is the name of the main class
+Setting the path through an environment variable
+The environment variable named CLASSPATH may be alternatively used to set the classpath. For the above example, we could also use on Windows:
+
+set CLASSPATH=D:\myprogram
+java org.mypackage.HelloWorld
+The rule is that -classpath option, when used to start the java application, overrides the CLASSPATH environment variable. If none are specified, the current working directory is used as classpath. This means that when our working directory is D:\myprogram\ (on Linux, /home/user/myprogram/), we would not need to specify the classpath explicitly. When overriding however, it is advised to include the current folder "." into the classpath in the case when loading classes from current folder is desired.
+
+The same applies not only to java launcher but also to javac, the java compiler.

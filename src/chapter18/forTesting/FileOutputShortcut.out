@@ -1,0 +1,24 @@
+1: package chapter18;
+2: 
+3: import java.io.BufferedReader;
+4: import java.io.IOException;
+5: import java.io.PrintWriter;
+6: import java.io.StringReader;
+7: 
+8: public class FileOutputShortcut {
+9:     static String file =
+10:             "C:\\Users\\Кирилл Анатольевич\\Documents\\Programming\\philosophy\\src\\chapter18\\forTesting\\FileOutputShortcut.out";
+11: 
+12:     public static void main(String[] args) throws IOException {
+13:         BufferedReader in = new BufferedReader(new StringReader(BufferedInputFile.read(
+14:                 "C:\\Users\\Кирилл Анатольевич\\Documents\\Programming\\philosophy\\src\\chapter18\\FileOutputShortcut.java"
+15:         )));
+16:         PrintWriter out = new PrintWriter(file);
+17:         String s;
+18:         int lineCount = 1;
+19:         while ((s = in.readLine())!= null)
+20:             out.println(lineCount++ + ": " + s);
+21:         out.close();
+22:         System.out.println(BufferedInputFile.read(file));
+23:     }
+24: }
